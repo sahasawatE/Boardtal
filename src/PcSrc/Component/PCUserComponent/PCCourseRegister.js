@@ -341,9 +341,8 @@ export default function PCCourseRegister(props){
                                                 <TextField
                                                     error={dateError}
                                                     id="datetime-local"
-                                                    label="Pick date"
+                                                    label="dd/mm/yyyy"
                                                     type="date"
-                                                    helperText="dd/mm/yyyy"
                                                     defaultValue={currentDate}
                                                     helperText={helperText}
                                                     InputLabelProps={{
