@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import PCClassCalenderTable from './PCTableComponent/PCClassCalendarTable'
-
-import { Paper,fade, Box, ButtonGroup, Button, Select, Popper, MenuList, MenuItem, Grow, Grid } from '@material-ui/core'
+import { Paper,fade, Box, ButtonGroup, Button, Select, Popper, MenuList, MenuItem, Grow, Grid, TextField } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider} from '@material-ui/core/styles'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import PCExamCalendarTable from './PCTableComponent/PCExamCalendarTable'
-
+import moment from 'moment'
 
 export default function PCTable(){
     const styles = {
@@ -35,6 +34,10 @@ export default function PCTable(){
     const [open,setOpen] = useState(false)
     const [select,setSelect] = useState(0)
     const anchorRef = React.useRef(null);
+    const [currentDate,setCurrentDate] = useState(new Date().toISOString().substring(0, 10))
+    const [dateError,setDateError]=useState(false)
+    const [helperText,setHelperText]=useState("")
+
     function selectStateToTableName(state){
         if (state===0){
             return "Class schedule"
@@ -56,11 +59,28 @@ export default function PCTable(){
     }
     function SelectSchedule(props){
         if (props.schedule===0){
-            return <PCClassCalenderTable/>
+            return <PCClassCalenderTable currentDate={currentDate}/>
         }
         else if(props.schedule===1){
-            return <PCExamCalendarTable/>
+            return <PCExamCalendarTable currentDate={currentDate} />
         }
+    }
+
+    function handleDatePicker(){
+        let date = document.getElementById("datetime-local").value
+        let dateCheck = moment(date).isValid()
+        if (dateCheck){
+            setDateError(false)
+            setCurrentDate(document.getElementById("datetime-local").value)
+            setHelperText("")
+        }
+        else{
+            setHelperText("Date format invalid")
+            setDateError(true)
+        }
+    }
+    function handleTodayPicker(){
+        setCurrentDate(new Date().toISOString().substring(0, 10))
     }
     return(
         <Grid container xl>
@@ -120,7 +140,31 @@ export default function PCTable(){
                     </Box>
 
                     <Paper elevation={5} style={styles.paperStyle}>
-                        
+                        <Box align="center">
+                            <form noValidate>
+                                
+                                <TextField
+                                    error={dateError}
+                                    id="datetime-local"
+                                    label="dd/mm/yyyy"
+                                    type="date"
+                                    defaultValue={currentDate}
+                                    helperText={helperText}
+                                    InputLabelProps={{
+                                    shrink: true,
+                                    }}
+                                >
+                                    
+                                </TextField>
+                            </form>
+                            <Button onClick={handleDatePicker}>
+                                    Pick Date
+                            </Button>
+                            <Button onClick={handleTodayPicker}>
+                                    Today
+                            </Button>
+
+                        </Box>
                         <SelectSchedule schedule={select}/>
                     </Paper>
 

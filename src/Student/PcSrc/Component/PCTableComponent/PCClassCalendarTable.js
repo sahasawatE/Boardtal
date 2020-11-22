@@ -7,28 +7,19 @@ import {
   WeekView,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import {scheduleData} from "./../../Data/ScheduleData"
 
-
-export default function PCClassCalendarTable(){
-
-    const schedulerData = [
-        { 
-            title: 'CalculusIV',
-            startDate: '2020-11-09T08:00', 
-            endDate: '2020-11-09T10:00',
-        },
-        { 
-            title: 'PhysicsVII',
-            startDate: '2020-11-09T13:00', 
-            endDate: '2020-11-09T15:00', 
-        },
-    ];
+export default function PCClassCalendarTable(props){
+    const currentDate = props.currentDate;
+    const schedulerData = scheduleData
     return(
         <Paper>
             <Scheduler
                 data={schedulerData}
             >
-                <ViewState/>
+                <ViewState
+                    currentDate={currentDate}
+                />
                 <WeekView
                     startDayHour={7}
                     endDayHour={17}

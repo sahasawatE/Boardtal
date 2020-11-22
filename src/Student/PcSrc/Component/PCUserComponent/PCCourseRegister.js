@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom"
 export default function PCCourseRegister(props){
     let history = useHistory()
     const [currentDate,setCurrentDate] = useState(new Date().toISOString().substring(0, 10))
-    const [toDay,setToday] = useState(new Date().toISOString().substring(0, 10))
+
     const availableCourse=[
         {
             title: 'CalculusXVII',

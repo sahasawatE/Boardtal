@@ -6,21 +6,11 @@ import {
   MonthView,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import {scheduleData} from "./../../Data/ScheduleData"
 
-export default function PCExamCalendarTable(){
-    const currentDate = '2020-11-08';
-    const schedulerData = [
-        { 
-            title: 'Exam CalculusIV',
-            startDate: '2020-11-09T08:00', 
-            endDate: '2020-11-09T10:00', 
-        },
-        { 
-            title: 'Exam PhysicsVII',
-            startDate: '2020-11-09T13:00', 
-            endDate: '2020-11-09T15:00', 
-        },
-    ];
+export default function PCExamCalendarTable(props){
+    const currentDate = props.currentDate;
+    const schedulerData = scheduleData
     return(
         <Paper>
             <Scheduler
@@ -32,7 +22,6 @@ export default function PCExamCalendarTable(){
                 <MonthView
                     startDayHour={7}
                     endDayHour={17}
-                   
                 />
                 <Appointments />
             </Scheduler>
