@@ -1,16 +1,16 @@
 import React from 'react'
-import PCTable from '../../src/PcSrc/Component/PCTable'
-import MobileTable from '../../src/MobileSrc/Component/MobileTable'
+import PCUser from './../PcSrc/Component/PCUser'
+import MobileUser from './../MobileSrc/Component/MobileUser'
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 
-export default function Table(){
+export default function User(){
     const isComputer = useMediaQuery("(min-width:600px");
         return(
             <div>
                 {isComputer ? 
-                    <PCTable/>
+                    <PCUser/>
                         :
-                    <MobileTable/>
+                    <MobileUser/>
                 }
             </div>
         )

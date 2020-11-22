@@ -13,7 +13,7 @@ import {
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
-function PcTeacherViewAn(){
+export default function PcTeacherViewAnnounce(){
     const [open, setOpen] = React.useState("");
     const handelClick = key => {
         if (open === setOpen){
@@ -60,4 +60,3 @@ function PcTeacherViewAn(){
     );
 }
 
-export default PcTeacherViewAn;

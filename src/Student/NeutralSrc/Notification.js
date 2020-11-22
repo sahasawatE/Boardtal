@@ -1,6 +1,6 @@
 import React from 'react'
-import PCNotification from '../PcSrc/Component/PCNotification'
-import MobileNotification from '../MobileSrc/Component/MobileNotification'
+import PCNotification from './../PcSrc/Component/PCNotification'
+import MobileNotification from './../MobileSrc/Component/MobileNotification'
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 
 export default function Main(){

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PcTeacherAn(){
+export default function PcTeacherAnnounce(){
     const [selectedDate, setSelectedDate] = React.useState(new Date());
 
     const handleDateChange = (date) => {
@@ -131,5 +131,3 @@ function PcTeacherAn(){
         </div>
     );
 }
-
-export default PcTeacherAn;

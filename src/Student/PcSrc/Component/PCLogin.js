@@ -16,12 +16,19 @@ export default function PCLogin(props){
   const [inputError,setInputError] = useState()
   const mockLoginData = [
                           {
-                            id : "raiwin",
-                            password : "12345678"
+                            id : "win",
+                            password : "012345678",
+                            priviledge : 0
                           },
                           {
                             id : "hok",
-                            password : "2444666668888888"
+                            password : "2444666668888888",
+                            priviledge : 1
+                          },
+                          {
+                            id : "fah",
+                            password : "876543210",
+                            priviledge : 2
                           }
                         ]
   let history = useHistory()
@@ -43,7 +50,8 @@ export default function PCLogin(props){
     for (const data in mockLoginData){
       if (mockLoginData[data].id === id && mockLoginData[data].password === password){
         setInputError(false)
-
+        props.setRole(mockLoginData[data].priviledge)
+        console.log(mockLoginData[data].priviledge)
         break
       }
       else{
