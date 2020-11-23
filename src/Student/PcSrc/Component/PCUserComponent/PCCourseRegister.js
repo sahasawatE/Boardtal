@@ -8,6 +8,7 @@ import PCUserExam from "./PCUserRegisterComponent/PCUserExam"
 
 import moment from 'moment'
 import { useHistory } from "react-router-dom"
+import Axios from 'axios';
 
 
 export default function PCCourseRegister(props){
@@ -15,48 +16,49 @@ export default function PCCourseRegister(props){
     const [currentDate,setCurrentDate] = useState(new Date().toISOString().substring(0, 10))
 
     const availableCourse=[
-        {
-            title: 'CalculusXVII',
-            courseID:"123456",
-            startDate: '2020-11-09T08:00', 
-            endDate: '2020-11-09T10:00',
-            rRule: 'FREQ=WEEKLY;COUNT=4',
-            midTermStartDate: '2020-11-09T11:00',
-            midTermEndDate: '2020-11-09T13:00',
-            finalStartDate: '2020-11-12T13:00',
-            finalEndDate: '2020-11-12T16:00'
-        },
-        {
-            title: 'CalculusX',
-            courseID:"123457",
-            startDate: '2020-11-19T08:00', 
-            endDate: '2020-11-19T10:00',
-            rRule: 'FREQ=WEEKLY;COUNT=4',
-            midTermStartDate: '2020-11-19T11:00',
-            midTermEndDate: '2020-11-19T13:00',
-            finalStartDate: '2020-11-20T13:00',
-            finalEndDate: '2020-11-20T16:00'
-        },
-        {
-            title: 'PhysicsIX',
-            courseID:"123475",
-            startDate: '2020-11-10T08:00', 
-            endDate: '2020-11-10T10:00',
-            rRule: 'FREQ=WEEKLY;COUNT=4',
-            midTermStartDate: '2020-11-10T11:00',
-            midTermEndDate: '2020-11-10T13:00',
-            finalStartDate: '2020-11-15T13:00',
-            finalEndDate: '2020-11-15T16:00'
-        }
+        // {
+        //     title: 'CalculusXVII',
+        //     courseID:"123456",
+        //     startDate: '2020-11-09T08:00', 
+        //     endDate: '2020-11-09T10:00',
+        //     rRule: 'FREQ=WEEKLY;COUNT=4',
+        //     midTermStartDate: '2020-11-09T11:00',
+        //     midTermEndDate: '2020-11-09T13:00',
+        //     finalStartDate: '2020-11-12T13:00',
+        //     finalEndDate: '2020-11-12T16:00'
+        // },
+        // {
+        //     title: 'CalculusX',
+        //     courseID:"123457",
+        //     startDate: '2020-11-19T08:00', 
+        //     endDate: '2020-11-19T10:00',
+        //     rRule: 'FREQ=WEEKLY;COUNT=4',
+        //     midTermStartDate: '2020-11-19T11:00',
+        //     midTermEndDate: '2020-11-19T13:00',
+        //     finalStartDate: '2020-11-20T13:00',
+        //     finalEndDate: '2020-11-20T16:00'
+        // },
+        // {
+        //     title: 'PhysicsIX',
+        //     courseID:"123475",
+        //     startDate: '2020-11-10T08:00', 
+        //     endDate: '2020-11-10T10:00',
+        //     rRule: 'FREQ=WEEKLY;COUNT=4',
+        //     midTermStartDate: '2020-11-10T11:00',
+        //     midTermEndDate: '2020-11-10T13:00',
+        //     finalStartDate: '2020-11-15T13:00',
+        //     finalEndDate: '2020-11-15T16:00'
+        // }
     ]
-    const chooseCourse=[]
+
+    const chosenCourse=[]
 
     const [classSchedule,setClassSchdule] = useState([])
     const [examSchedule,setExamSchedule] = useState([])
 
     const [checked, setChecked] = React.useState([]);
-    const [left, setLeft] = React.useState(availableCourse);
-    const [right, setRight] = React.useState(chooseCourse);
+    const [left, setLeft] = React.useState((availableCourse));
+    const [right, setRight] = React.useState(chosenCourse);
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
@@ -86,7 +88,6 @@ export default function PCCourseRegister(props){
         setChecked(newChecked);
     };
 
-    const numberOfChecked = (items) => intersection(checked, items).length;
 
     useEffect(()=>{
         // console.log("apple")
@@ -127,7 +128,42 @@ export default function PCCourseRegister(props){
         setClassSchdule(classDataList)
         setExamSchedule(examDataList)
     },[right.length])
-
+    useEffect(()=>{
+        Axios.get('https://boardtal.herokuapp.com/course/all')
+            .then((res)=>{
+                return res.data
+            })
+            .then((data)=>{
+                let course = []
+                const date_week = ['09','10','11','12','13','14','15']
+                for (const dat of data){
+                    for (const j of dat['course_sec']){
+                        for(const k of j['time']){
+                            let day = '2020-11-' + date_week[parseInt(k.slice(0, 1))-1]
+                            let start_date = day + 'T' + k.slice(1, 3) + ":" + k.slice(3, 5)
+                            let end_date = day +'T'+ k.slice(5, 7) + ":" + k.slice(7,9)
+                            let mooc = {
+                                title: dat['course_name'],
+                                secs : j['sec'],
+                                courseID: dat['course_id'],
+                                startDate: start_date, 
+                                endDate: end_date,
+                                rRule: 'FREQ=WEEKLY;COUNT=4',
+                                midTermStartDate: '2020-11-10T11:00',
+                                midTermEndDate: '2020-11-10T13:00',
+                                finalStartDate: '2020-11-15T13:00',
+                                finalEndDate: '2020-11-15T16:00'
+                            }
+                            course.push(mooc)
+                        }
+                    }
+                }
+                return course
+            }).then((course)=>{
+                setLeft(course)
+                console.log(course)
+            })
+    },[])
     function handleCheckedRight (){
         setRight(right.concat(leftChecked))
         setLeft(not(left, leftChecked));
@@ -169,6 +205,7 @@ export default function PCCourseRegister(props){
                                     secondary={
                                         <Box>
                                             <Divider style={{marginBottom:"5px"}}  />
+                                            section : {value.secs}<br/>
                                             Class: {value.startDate.substring(11,16)}-{value.endDate.substring(11,16)}<br/>
                                             Mid-term exam: {value.midTermEndDate.substring(0,10)} <br/>
                                             at {value.midTermStartDate.substring(11,16)} - {value.midTermEndDate.substring(11,16)}<br/>
@@ -208,6 +245,7 @@ export default function PCCourseRegister(props){
 
     
     function handleSubmitCourseButton(){
+        // Axios.post()
         history.push("/main/home")
     }
 

@@ -6,15 +6,15 @@ import {
   MonthView,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import {scheduleData} from "./../../Data/ScheduleData"
+import {UserSchedule} from "./../../../../Data/UserData"
 
 export default function PCExamCalendarTable(props){
     const currentDate = props.currentDate;
-    const schedulerData = scheduleData
+    const schedulerData = UserSchedule.courseRegistered
     return(
         <Paper>
             <Scheduler
-                data={schedulerData}
+                // data={schedulerData}
             >
                 <ViewState
                     currentDate={currentDate}

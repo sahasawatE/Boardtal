@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -7,15 +7,16 @@ import {
   WeekView,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import {scheduleData} from "./../../Data/ScheduleData"
+import {UserSchedule} from "./../../../../Data/UserData"
+import { Button } from '@material-ui/core';
 
 export default function PCClassCalendarTable(props){
     const currentDate = props.currentDate;
-    const schedulerData = scheduleData
+    const schedulerData = null
     return(
         <Paper>
             <Scheduler
-                data={schedulerData}
+                // data={schedulerData}
             >
                 <ViewState
                     currentDate={currentDate}

@@ -89,57 +89,57 @@ export default function PCTable(){
 
 
                 <Grid item xs={12} align="center">
-                    <Box align="center" style={{marginTop:20}}>
-                        <Grid container direction="column" alignItems="center" >
-                            <Grid item xs={12} align="center">
-
-                                <ButtonGroup variant="contained" color="primary" ref={anchorRef}>
-                                    <Button
-
-                                        color="primary"
-                                    >
-                                        {selectStateToTableName(select)}
-                                    </Button>
-                                    <Button
-                                        color="secondary"
-                                        size="small"
-                                        onClick={handleDropDownButton}
-                                    >
-                                        <ArrowDropDownIcon />
-                                    </Button>
-                                </ButtonGroup>
-                                <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal style={{zIndex:5}}>
-                                    {({ TransitionProps, placement }) =>(
-                                        <Grow
-                                            {...TransitionProps}
-                                            style={{
-                                                transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-                                            }}
-                                        >
-                                            <Paper style={{width:"160px"}}>
-                                                <MenuList id="split-button-menu" >
-                                                    
-                                                    <MenuItem
-                                                        onClick={handleSelectClass}
-                                                    >
-                                                        Class schedule
-                                                    </MenuItem>
-                                                    <MenuItem
-                                                        onClick={handleSelectExam}
-                                                    >
-                                                        Exam schedule
-                                                    </MenuItem>
-
-                                                </MenuList>
-                                            </Paper>
-                                        </Grow>
-                                    )}
-                                </Popper>
-                            </Grid>
-                        </Grid>
-                    </Box>
 
                     <Paper elevation={5} style={styles.paperStyle}>
+                        <Box align="center" style={{marginTop:20}}>
+                            <Grid container direction="column" alignItems="center" >
+                                <Grid item xs={12} align="center">
+
+                                    <ButtonGroup variant="contained" color="primary" ref={anchorRef}>
+                                        <Button
+
+                                            color="primary"
+                                        >
+                                            {selectStateToTableName(select)}
+                                        </Button>
+                                        <Button
+                                            color="secondary"
+                                            size="small"
+                                            onClick={handleDropDownButton}
+                                        >
+                                            <ArrowDropDownIcon />
+                                        </Button>
+                                    </ButtonGroup>
+                                    <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal style={{zIndex:5}}>
+                                        {({ TransitionProps, placement }) =>(
+                                            <Grow
+                                                {...TransitionProps}
+                                                style={{
+                                                    transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+                                                }}
+                                            >
+                                                <Paper style={{width:"160px"}}>
+                                                    <MenuList id="split-button-menu" >
+                                                        
+                                                        <MenuItem
+                                                            onClick={handleSelectClass}
+                                                        >
+                                                            Class schedule
+                                                        </MenuItem>
+                                                        <MenuItem
+                                                            onClick={handleSelectExam}
+                                                        >
+                                                            Exam schedule
+                                                        </MenuItem>
+
+                                                    </MenuList>
+                                                </Paper>
+                                            </Grow>
+                                        )}
+                                    </Popper>
+                                </Grid>
+                            </Grid>
+                        </Box>
                         <Box align="center">
                             <form noValidate>
                                 

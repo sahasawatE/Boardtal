@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,createContext} from 'react'
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Login from "./Student/NeutralSrc/Login"
 import Main from "./Student/NeutralSrc/Main"
@@ -6,7 +6,7 @@ import Table from "./Student/NeutralSrc/Table"
 import Notification from "./Student/NeutralSrc/Notification"
 import User from "./Student/NeutralSrc/User"
 import Home from "./Student/NeutralSrc/Home"
-import {UserData} from "./Data/UserData"
+
 
 import {
     BrowserRouter as Router,
@@ -21,8 +21,11 @@ import {
 
 
 export default function App(){
-    const [loginState,setLoginState] = useState(false)
-    const [role,setRole] = useState(null)
+    const UserData = createContext(null)
+    const [loginState,setLoginState] = useState(true)
+    const [role,setRole] = useState("student")
+    // const [userData,setUserData] = useState(null)
+
     function changeLoginState(newState){
         setLoginState(newState)
     }
@@ -39,13 +42,10 @@ export default function App(){
                         </Route>
                         <Route path="/main">    
                             <Main loginState={loginState} setState={changeLoginState}/>
-                            {/* {role==="teacher" && <div>Teacher Main</div>} */}
-                                    
-                                
                         </Route>
                         
                         <Route path="/main/home">
-                            {role==="student"  && <Home />}
+                            {role==="student" && <Home />}
                             {role==="teacher" && <div>Teacher Home</div>}
                         </Route>
                         <Route path="/main/table">

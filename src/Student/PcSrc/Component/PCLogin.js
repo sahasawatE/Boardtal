@@ -10,27 +10,12 @@ import background from "../../PcSrc/Img/BackGround.jpg"
 import Button from '@material-ui/core/Button'
 
 import { useHistory } from "react-router-dom"
+import {UserLoginIDList} from "./../../../Data/UserData"
 
 export default function PCLogin(props){  
   
   const [inputError,setInputError] = useState()
-  const mockLoginData = [
-                          {
-                            id : "win",
-                            password : "123",
-                            role : "student"
-                          },
-                          {
-                            id : "hok",
-                            password : "123",
-                            role : "teacher"
-                          },
-                          {
-                            id : "fah",
-                            password : "123",
-                            role : "admin"
-                          }
-                        ]
+  const mockLoginData = UserLoginIDList
   let history = useHistory()
   useEffect(()=>{
     if(inputError===false){
@@ -48,7 +33,7 @@ export default function PCLogin(props){
     const password = document.getElementById("passwordTextField").value
 
     for (const data in mockLoginData){
-      if (mockLoginData[data].id === id && mockLoginData[data].password === password){
+      if (mockLoginData[data].uid === id && mockLoginData[data].password === password){
         setInputError(false)
         props.setRole(mockLoginData[data].role)
         console.log(mockLoginData[data].role)

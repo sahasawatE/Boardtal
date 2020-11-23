@@ -13,7 +13,6 @@ export default function PCUser(){
     function changePage(page){
         setpage(page)
     }
-    const preventDefault = (event) => event.preventDefault();
     // function handleProfileButton(){
     //     history.push("/login")
     // }

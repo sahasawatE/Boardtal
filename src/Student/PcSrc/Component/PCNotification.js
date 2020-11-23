@@ -5,9 +5,9 @@ import Logo from '../../PcSrc/Img/Portal_ImgResized.png'
 
 export default function PCNotification(){
     const notificationList= [
-                                {logo:Logo,from:"Boardtal System",message:"This is notifications test No.0"},
-                                {logo:Logo,from:"Boardtal System",message:"This is notifications test No.1"},
-                                {logo:Logo,from:"Boardtal System",message:"This is notifications test No.2"}
+                                {notiID:"0",logo:Logo,from:"Boardtal System",message:"This is notifications test No.0"},
+                                {notiID:"1",logo:Logo,from:"Boardtal System",message:"This is notifications test No.1"},
+                                {notiID:"2",logo:Logo,from:"Boardtal System",message:"This is notifications test No.2"}
                             ]
     const styles = {
         headerOuterPaperStyle:{
@@ -64,7 +64,7 @@ export default function PCNotification(){
                                     
                                     {
                                         notificationList.map((notiID)=>(
-                                            <div>
+                                            <div key = {notiID.notiID}>
                                                 <ListItem>
                                                     <ListItemAvatar>
                                                         <Avatar src={notiID.logo}/>
