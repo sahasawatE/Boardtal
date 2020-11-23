@@ -136,6 +136,7 @@ export default function PCCourseRegister(props){
             .then((data)=>{
                 let course = []
                 const date_week = ['09','10','11','12','13','14','15']
+                const dayOfWeek = ["","Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
                 for (const dat of data){
                     for (const j of dat['course_sec']){
                         for(const k of j['time']){
@@ -144,6 +145,7 @@ export default function PCCourseRegister(props){
                             let end_date = day +'T'+ k.slice(5, 7) + ":" + k.slice(7,9)
                             let mooc = {
                                 title: dat['course_name'],
+                                day: dayOfWeek[k.slice(0,1)],
                                 secs : j['sec'],
                                 courseID: dat['course_id'],
                                 startDate: start_date, 
@@ -205,8 +207,8 @@ export default function PCCourseRegister(props){
                                     secondary={
                                         <Box>
                                             <Divider style={{marginBottom:"5px"}}  />
-                                            section : {value.secs}<br/>
-                                            Class: {value.startDate.substring(11,16)}-{value.endDate.substring(11,16)}<br/>
+                                            Section : {value.secs}<br/>
+                                            Class: {value.day} {value.startDate.substring(11,16)}-{value.endDate.substring(11,16)}<br/>
                                             Mid-term exam: {value.midTermEndDate.substring(0,10)} <br/>
                                             at {value.midTermStartDate.substring(11,16)} - {value.midTermEndDate.substring(11,16)}<br/>
                                             Final exam: {value.midTermEndDate.substring(0,10)} <br/>
@@ -300,7 +302,7 @@ export default function PCCourseRegister(props){
     }
     const styles = {
         paperStyle: {
-            width:"1750px",
+            margin:"20px",
             paddingTop:"1%",
             paddingBottom:"1%",
             position:"static",
@@ -321,7 +323,7 @@ export default function PCCourseRegister(props){
                                 </IconButton>
                             </Box>
                             <Grid container xl>
-                                <Grid item xs={12} sm={8} >
+                                <Grid item xs={12} sm={6} >
                                     <Grid container xl>
                                         <Grid item xs={12} sm={4} align="left" style={{paddingLeft:"40px",paddingTop:"20px"}}>
                                             <ButtonGroup variant="contained" color="primary" ref={anchorRef} >
@@ -400,7 +402,7 @@ export default function PCCourseRegister(props){
                                     </Grid>
                                     <SelectSchedule schedule={select}/>
                                 </Grid>
-                                <Grid item xs={12} sm={4} >
+                                <Grid item xs={12} sm={6} >
                                     <Box style={{marginRight:"10px",paddingTop:"10px"}}>
 
                                         <Typography variant="h5">
