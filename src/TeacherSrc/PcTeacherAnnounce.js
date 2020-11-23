@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Grid,
     Box,
@@ -15,12 +15,13 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import TelegramIcon from '@material-ui/icons/Telegram';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+// import DateFnsUtils from '@date-io/date-fns';
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardTimePicker,
+//   KeyboardDatePicker,
+// } from '@material-ui/pickers';
+import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -51,6 +52,8 @@ export default function PcTeacherAnnounce(){
     const handleClose = () => {
         setOpen(false);
     };
+    const [dateError,setDateError]=useState(false)
+    const [helperText,setHelperText]=useState("")
     return(
         <div>
             <Grid container xs="12">
@@ -71,50 +74,22 @@ export default function PcTeacherAnnounce(){
                                 type="text"
                                 fullWidth
                             />
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardDatePicker
-                                margin="normal"
-                                id="date-picker-dialog-from"
-                                label="Date From"
-                                format="MM/dd/yyyy"
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                                />
-                                <KeyboardTimePicker
-                                margin="normal"
-                                id="time-picker-from"
-                                label="Time From"
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change time',
-                                }}
-                                />
-                                <KeyboardDatePicker
-                                margin="normal"
-                                id="date-picker-dialog-to"
-                                label="Date To"
-                                format="MM/dd/yyyy"
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                                />
-                                <KeyboardTimePicker
-                                margin="normal"
-                                id="time-picker-to"
-                                label="Time To"
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change time',
-                                }}
-                                />
-                            </MuiPickersUtilsProvider>
+                            <form noValidate>
+                                        
+                                <TextField
+                                    error={dateError}
+                                    id="datetime-local"
+                                    label="dd/mm/yyyy"
+                                    type="date"
+                                    defaultValue={new Date().toISOString().substring(0, 10)}
+                                    helperText={helperText}
+                                    InputLabelProps={{
+                                    shrink: true,
+                                    }}
+                                >
+                                            
+                                </TextField>
+                            </form>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose} color="secondary">

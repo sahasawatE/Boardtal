@@ -21,7 +21,7 @@ import {FaFolder,FaFolderOpen,FaAngleRight,FaChevronDown,FaPowerOff, FaCog,FaFil
 import {ViewState} from '@devexpress/dx-react-scheduler';
 import {Scheduler,WeekView,Appointments} from '@devexpress/dx-react-scheduler-material-ui';
 import PcTeacherFile from './PcTeacherFile';
-import PcTeacherAn from './PcTeacherAn';
+import PcTeacherAnnounce from './PcTeacherAnnounce';
 import LinuxCommand from './pdf/LinuxCommand.pdf'
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
@@ -145,57 +145,69 @@ function PcTeacherHome(){
                             </TabPanel>
                             <TabPanel value={value} index={1}>
                                 <Grid container xl>
-                                    <div style={{marginTop:"1px"}}>
-                                        <Box style={{width:"20rem"}}>
-                                            <Paper style={{height:"40rem"}}>
-                                                <div style={{paddingTop:"1rem",marginLeft:"35%",paddingBottom:"1rem"}}>
-                                                    <Typography variant="h5">Course</Typography>
-                                                </div>
-                                                <Box style={{marginLeft:"1rem",marginRight:"1rem"}}>
-                                                    <List>
-                                                        {['1234523(1) A','2234523(1) B','3234523(2) C'].map((s,index) => (
-                                                            <ListItem button key={s}>
-                                                                <ListItemText primary={s}/>
-                                                                <ListItemIcon><FaAngleRight/></ListItemIcon>
-                                                            </ListItem>
-                                                        ))}
-                                                    </List>
-                                                </Box>
-                                            </Paper>
-                                        </Box>
-                                    </div>
-                                    <div style={{marginTop:"1px"}}>
-                                        <PcTeacherFile/>
-                                        <div>
-                                            <PcTeacherAn/>
-                                        </div>
-                                        <div style={{marginTop:"-65px",marginLeft:"18rem"}}>
-                                            <ToggleButton
-                                                value="check"
-                                                selected={selected}
-                                                onChange={() => {
-                                                    setSelected(!selected);
-                                                }}
-                                            >
-                                                <Typography variant="p">Show PDf</Typography>
-                                            </ToggleButton>
-                                        </div>
-                                    </div>
-                                    <div style={{marginTop:"1px"}}>
-                                        <div id="pdf">
-                                            <Box style={{width:"34.4rem", marginLeft:"5px"}}>
+                                    <Grid item xs={12} sm={3}>
+
+                                        <div style={{marginTop:"1px"}}>
+                                            <Box style={{}}>
                                                 <Paper style={{height:"40rem"}}>
-                                                    <div id="pdf" style={{width:"100%" ,height:"40rem"}}>
-                                                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                                                            <Viewer fileUrl={LinuxCommand} />
-                                                        </Worker>
+                                                    <div style={{paddingTop:"1rem",marginLeft:"35%",paddingBottom:"1rem"}}>
+                                                        <Typography variant="h5">Course</Typography>
                                                     </div>
+                                                    <Box style={{marginLeft:"1rem",marginRight:"1rem"}}>
+                                                        <List>
+                                                            {['1234523(1) A','2234523(1) B','3234523(2) C'].map((s,index) => (
+                                                                <ListItem button key={s}>
+                                                                    <ListItemText primary={s}/>
+                                                                    <ListItemIcon><FaAngleRight/></ListItemIcon>
+                                                                </ListItem>
+                                                            ))}
+                                                        </List>
+                                                    </Box>
                                                 </Paper>
                                             </Box>
                                         </div>
-                                    </div>
+                                    </Grid>
+
+                                    <Grid item xs={12} sm={4} style={{}} align="center"> 
+
+
+                                            <PcTeacherFile/>
+                                            <div>
+                                                <PcTeacherAnnounce/>
+                                            </div>
+                                            <div style={{marginTop:"-65px",marginLeft:"18rem"}}>
+                                                <ToggleButton
+                                                    value="check"
+                                                    selected={selected}
+                                                    onChange={() => {
+                                                        setSelected(!selected);
+                                                    }}
+                                                    >
+                                                    <Typography variant="p">Show PDf</Typography>
+                                                </ToggleButton>
+                                            </div>
+                              
+                                    </Grid>
+                                    
+                                    <Grid item xs={12} sm={5}>
+                                        <div style={{marginTop:"1px"}}>
+                                            <div id="pdf">
+                                                <Box style={{ marginLeft:"5px"}}>
+                                                    <Paper style={{height:"40rem"}}>
+                                                        <div id="pdf" style={{width:"100%" ,height:"40rem"}}>
+                                                            <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                                                                <Viewer fileUrl={LinuxCommand} />
+                                                            </Worker>
+                                                        </div>
+                                                    </Paper>
+                                                </Box>
+                                            </div>
+                                        </div>
+
+                                    </Grid>
                                 </Grid>
                             </TabPanel>
+                            
                         </Box>
                     </Paper>
                 </Box>

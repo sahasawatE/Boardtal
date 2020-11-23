@@ -6,6 +6,7 @@ import Table from "./Student/NeutralSrc/Table"
 import Notification from "./Student/NeutralSrc/Notification"
 import User from "./Student/NeutralSrc/User"
 import Home from "./Student/NeutralSrc/Home"
+import PcTeacherHome from "./TeacherSrc/PcTeacherHome"
 
 
 import {
@@ -21,9 +22,9 @@ import {
 
 
 export default function App(){
+    const [loginState,setLoginState] = useState(false)
     const UserData = createContext(null)
-    const [loginState,setLoginState] = useState(true)
-    const [role,setRole] = useState("student")
+    const [role,setRole] = useState("")
     // const [userData,setUserData] = useState(null)
 
     function changeLoginState(newState){
@@ -41,12 +42,12 @@ export default function App(){
                             <Redirect to="/main/home" />
                         </Route>
                         <Route path="/main">    
-                            <Main loginState={loginState} setState={changeLoginState}/>
+                            {role==="student" &&<Main loginState={loginState} setState={changeLoginState}/>}
                         </Route>
                         
                         <Route path="/main/home">
                             {role==="student" && <Home />}
-                            {role==="teacher" && <div>Teacher Home</div>}
+                            {role==="teacher" && <PcTeacherHome/>}
                         </Route>
                         <Route path="/main/table">
                             {role==="student" && <Table/>}
