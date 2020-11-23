@@ -6,7 +6,7 @@ import Table from "./Student/NeutralSrc/Table"
 import Notification from "./Student/NeutralSrc/Notification"
 import User from "./Student/NeutralSrc/User"
 import Home from "./Student/NeutralSrc/Home"
-
+import {UserData} from "./Data/UserData"
 
 import {
     BrowserRouter as Router,
@@ -22,7 +22,7 @@ import {
 
 export default function App(){
     const [loginState,setLoginState] = useState(false)
-    const [role,setRole] = useState(-1)
+    const [role,setRole] = useState(null)
     function changeLoginState(newState){
         setLoginState(newState)
     }
@@ -32,34 +32,36 @@ export default function App(){
             {
                 loginState ?
                 <Router>
-                    <Route path="/" exact>
-                        <Redirect to="/main/home" />
-                    </Route>
-                    <Route path="/main">    
-                        {
-                            ()=>{
-                                if (role===0){
-                                    return <Main loginState={loginState} setState={changeLoginState}/>
-                                }else if (role===1){
-                                    return <div>apple</div>
-                                }
+                    <UserData.Provider value={{fullName:"Boardtal System",userID:"1234567890"}}>
 
-                            }
-                        }
-                    </Route>
-                    
-                    <Route path="/main/home">
-                        <Home />
-                    </Route>
-                    <Route path="/main/table">
-                        <Table/>
-                    </Route>
-                    <Route path="/main/notification">
-                        <Notification/>
-                    </Route>
-                    <Route path="/main/user" exact>
-                        <User/>
-                    </Route>
+                        <Route path="/" exact>
+                            <Redirect to="/main/home" />
+                        </Route>
+                        <Route path="/main">    
+                            <Main loginState={loginState} setState={changeLoginState}/>
+                            {/* {role==="teacher" && <div>Teacher Main</div>} */}
+                                    
+                                
+                        </Route>
+                        
+                        <Route path="/main/home">
+                            {role==="student"  && <Home />}
+                            {role==="teacher" && <div>Teacher Home</div>}
+                        </Route>
+                        <Route path="/main/table">
+                            {role==="student" && <Table/>}
+                            {role==="teacher" && <div>Teacher Table</div>}
+                        </Route>
+                        <Route path="/main/notification">
+                            
+                            {role==="student" && <Notification/>}
+                            {role==="teacher" && <div>Teacher Notification</div>}
+                        </Route>
+                        <Route path="/main/user" exact>
+                            {role==="student" && <User/>}
+                            {role==="teacher" && <div>Teacher User</div>}
+                        </Route>
+                    </UserData.Provider>
                 </Router>
                     :
                 <Router>

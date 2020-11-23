@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Paper,fade, Box, ButtonGroup, Button, Select, Popper, MenuList, MenuItem, Grow, Grid, Avatar, Typography, IconButton, Divider, Link } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider} from '@material-ui/core/styles'
 import avatarPic from "../../Img/Portal_ImgResized.png"
 import { useHistory } from 'react-router-dom'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { UserData } from '../../../../Data/UserData'
 
 
 export default function PCUserProfile(props){
@@ -45,7 +46,9 @@ export default function PCUserProfile(props){
             marginTop:"20px",
         },
     };
-    const userData={fullName:"Boardtal System",userID:"1234567890"}
+    // const data = useContext(UserData)
+    // const userData = data
+    const userData={fullName:"Boardtal System",userID:"1234567890",userDetail: "The best Learning management system (atleast better than !whiteboard)"}
     return(
         <Grid container xl>
             <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"/>
@@ -62,10 +65,10 @@ export default function PCUserProfile(props){
                             </Grid>
                             <Grid item xs={12} sm={8} style={{paddingTop:"2.5%",paddingLeft:"20px"}}>
                                 <Typography variant = "h3">
-                                    Name: Boardtal System
+                                    Name: {userData.fullName}
                                 </Typography>
                                 <Typography variant = "body1">
-                                    Detail: The best Learning management system (atleast better than <text style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>!whiteboard</text>)
+                                    Detail: {userData.userDetail}
                                 </Typography>
                                 <Typography style={{fontSize:"0.75rem"}}>
                                     

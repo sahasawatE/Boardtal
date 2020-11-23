@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core'
 export default function PCHome(){
     return(
         <Grid>
-            apple
+            Home page
         </Grid>
     )
 }

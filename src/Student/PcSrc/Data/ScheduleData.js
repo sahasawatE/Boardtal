@@ -1,5 +1,3 @@
-import { DefaultContext } from "react-icons/lib";
-
 export const scheduleData = [
     { 
         title: 'CalculusIV',
