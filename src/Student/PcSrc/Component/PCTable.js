@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PCClassCalenderTable from './PCTableComponent/PCClassCalendarTable'
-import { Paper,fade, Box, ButtonGroup, Button, Select, Popper, MenuList, MenuItem, Grow, Grid, TextField } from '@material-ui/core'
+import { Paper,fade, Box, ButtonGroup, Button, Select, Popper, MenuList, MenuItem, Grow, Grid, TextField, Typography, Divider } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider} from '@material-ui/core/styles'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import PCExamCalendarTable from './PCTableComponent/PCExamCalendarTable'
@@ -91,10 +91,10 @@ export default function PCTable(){
                 <Grid item xs={12} align="center">
 
                     <Paper elevation={5} style={styles.paperStyle}>
-                        <Box align="center" style={{marginTop:20}}>
-                            <Grid container direction="column" alignItems="center" >
-                                <Grid item xs={12} align="center">
-
+                        <Box align="center" >
+                            <Grid container alignItems="center" >
+                                <Grid item xs={12} sm={4} align="left" style={{paddingLeft:"10px"}}>
+        
                                     <ButtonGroup variant="contained" color="primary" ref={anchorRef}>
                                         <Button
 
@@ -138,33 +138,41 @@ export default function PCTable(){
                                         )}
                                     </Popper>
                                 </Grid>
+                                <Grid item xs={12} sm={4} align="center" style={{paddingRight:"10px"}}>
+                                    <Typography variant="h5">
+                                        Your Table
+                                    </Typography>
+                                    <Divider/>
+                                </Grid>
+                                <Grid item xs={12} sm={4} align="right" style={{paddingRight:"10px"}}>
+
+                                    <form noValidate>
+                                        
+                                        <TextField
+                                            error={dateError}
+                                            id="datetime-local"
+                                            label="dd/mm/yyyy"
+                                            type="date"
+                                            defaultValue={currentDate}
+                                            helperText={helperText}
+                                            InputLabelProps={{
+                                            shrink: true,
+                                            }}
+                                        >
+                                            
+                                        </TextField>
+                                    </form>
+                                    <Button onClick={handleDatePicker}>
+                                            Pick Date
+                                    </Button>
+                                    <Button onClick={handleTodayPicker}>
+                                            Today
+                                    </Button>
+                                </Grid>
+
                             </Grid>
                         </Box>
-                        <Box align="center">
-                            <form noValidate>
-                                
-                                <TextField
-                                    error={dateError}
-                                    id="datetime-local"
-                                    label="dd/mm/yyyy"
-                                    type="date"
-                                    defaultValue={currentDate}
-                                    helperText={helperText}
-                                    InputLabelProps={{
-                                    shrink: true,
-                                    }}
-                                >
-                                    
-                                </TextField>
-                            </form>
-                            <Button onClick={handleDatePicker}>
-                                    Pick Date
-                            </Button>
-                            <Button onClick={handleTodayPicker}>
-                                    Today
-                            </Button>
-
-                        </Box>
+                        
                         <SelectSchedule schedule={select}/>
                     </Paper>
 
