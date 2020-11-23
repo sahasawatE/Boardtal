@@ -1,4 +1,4 @@
-import React, { useState ,createContext} from 'react'
+import React, { useState,useEffect } from 'react'
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Login from "./Student/NeutralSrc/Login"
 import Main from "./Student/NeutralSrc/Main"
@@ -23,20 +23,24 @@ import {
 
 export default function App(){
     const [loginState,setLoginState] = useState(false)
-    const UserData = createContext(null)
-    const [role,setRole] = useState("")
+    const [loggedUserData,setLoggedUserData] = useState({})
+    const [role,setRole] = useState("student")
     // const [userData,setUserData] = useState(null)
 
     function changeLoginState(newState){
         setLoginState(newState)
     }
-    
+    function changeLoggedUserData(data){
+        setLoggedUserData(data)
+    }
+    useEffect(()=>{
+        console.log(loggedUserData)
+    },[loggedUserData])
     return(
         <div>
             {
                 loginState ?
                 <Router>
-                    <UserData.Provider value={{fullName:"Boardtal System",userID:"1234567890"}}>
 
                         <Route path="/" exact>
                             <Redirect to="/main/home" />
@@ -59,10 +63,10 @@ export default function App(){
                             {role==="teacher" && <div>Teacher Notification</div>}
                         </Route>
                         <Route path="/main/user" exact>
-                            {role==="student" && <User/>}
+                            {role==="student" && <User loggedUserData={loggedUserData} setLoggedUserData={changeLoggedUserData} />}
                             {role==="teacher" && <div>Teacher User</div>}
                         </Route>
-                    </UserData.Provider>
+
                 </Router>
                     :
                 <Router>
@@ -70,7 +74,7 @@ export default function App(){
                         <Redirect to="/login"/>
                     </Route>
                     <Route path="/login">
-                        <Login setRole={setRole} role={role} loginState={loginState} setState={changeLoginState}/>
+                        <Login loggedUserData={loggedUserData} setLoggedUserData={changeLoggedUserData} setRole={setRole} role={role} loginState={loginState} setState={changeLoginState}/>
                     </Route>
                 </Router>
             }          

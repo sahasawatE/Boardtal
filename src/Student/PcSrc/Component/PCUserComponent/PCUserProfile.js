@@ -4,7 +4,7 @@ import { createMuiTheme, ThemeProvider} from '@material-ui/core/styles'
 import avatarPic from "../../Img/Portal_ImgResized.png"
 import { useHistory } from 'react-router-dom'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { UserData } from '../../../../Data/UserData'
+
 
 
 export default function PCUserProfile(props){
@@ -46,8 +46,7 @@ export default function PCUserProfile(props){
             marginTop:"20px",
         },
     };
-    // const data = useContext(UserData)
-    // const userData = data
+    
     const userData={fullName:"Boardtal System",userID:"1234567890",userDetail: "The best Learning management system (atleast better than !whiteboard)"}
     return(
         <Grid container xl>
@@ -65,10 +64,10 @@ export default function PCUserProfile(props){
                             </Grid>
                             <Grid item xs={12} sm={8} style={{paddingTop:"2.5%",paddingLeft:"20px"}}>
                                 <Typography variant = "h3">
-                                    Name: {userData.fullName}
+                                    Name: {props.loggedUserData["stud_firstname"]}
                                 </Typography>
                                 <Typography variant = "body1">
-                                    Detail: {userData.userDetail}
+                                    Detail: Not available
                                 </Typography>
                                 <Typography style={{fontSize:"0.75rem"}}>
                                     
@@ -86,8 +85,8 @@ export default function PCUserProfile(props){
                                         <Divider style={{marginBottom:20}}/>
                                     </Box>
                                     <Typography style={{fontSize:"1rem"}}>
-                                        Full name : {userData.fullName}<br/>
-                                        User ID : {userData.userID}
+                                        Full name : {props.loggedUserData["stud_firstname"]} {props.loggedUserData["stud_lastname"]}<br/>
+                                        User ID : {props.loggedUserData["stud_id"]}
                                     </Typography>
                                 </Paper>
                             </Grid>

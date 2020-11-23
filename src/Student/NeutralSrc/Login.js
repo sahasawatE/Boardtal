@@ -8,9 +8,9 @@ export default function Login(props){
         return(
             <div>
                 {isComputer ? 
-                    <PCLogin setRole={props.setRole} loginState={props.loginState} setState={props.setState}/>
+                    <PCLogin loggedUserData={props.loggedUserData} setLoggedUserData={props.setLoggedUserData} setRole={props.setRole} loginState={props.loginState} setState={props.setState}/>
                         :
-                    <MobileLogin setRole={props.setRole} loginState={props.loginState} setState={props.setState}/>
+                    <MobileLogin loggedUserData={props.loggedUserData} setLoggedUserData={props.setLoggedUserData} setRole={props.setRole} loginState={props.loginState} setState={props.setState}/>
                 }
             </div>
         )

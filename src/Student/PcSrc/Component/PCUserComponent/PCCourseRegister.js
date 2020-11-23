@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Paper,fade, Box, ButtonGroup, Button,List, ListItem, Select, Popper, MenuList, MenuItem, Grow, Grid, Avatar, Typography, IconButton, Divider, Link, CardHeader, Card, ListItemAvatar, ListItemIcon, ListItemText,Checkbox,TextField } from '@material-ui/core'
+import { Paper,fade, Box, ButtonGroup, Button,List, ListItem, Select, Popper, MenuList, MenuItem, Grow, Grid, Avatar, Typography, IconButton, Divider, Link, CardHeader, Card, ListItemAvatar, ListItemIcon, ListItemText,Checkbox,TextField, InputBase } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider} from '@material-ui/core/styles'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import PCUserClass from "./PCUserRegisterComponent/PCUserClass"
 import PCUserExam from "./PCUserRegisterComponent/PCUserExam"
-
+import SearchIcon from '@material-ui/icons/Search'
 import moment from 'moment'
 import { useHistory } from "react-router-dom"
 import Axios from 'axios';
-
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 export default function PCCourseRegister(props){
     let history = useHistory()
@@ -189,8 +189,23 @@ export default function PCCourseRegister(props){
                 title={title}
             />
             <Divider />
-        
-                <List style={{height:"460px",overflow:"auto"}}>
+
+                
+                <TextField 
+                    id="search_field" 
+                    variant="outlined"
+                    style={{width:"100%",}} 
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon/>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+
+            <Divider />
+                <List style={{height:"498px",overflow:"auto"}}>
                     {
                         items.map((value)=> (    
                             <ListItem button onClick={handleListClick(value)}>
@@ -408,8 +423,10 @@ export default function PCCourseRegister(props){
                                         <Typography variant="h5">
                                             Course List
                                         </Typography> 
-                                        <Divider  style={{marginTop:"5px",marginBottom:"48px"}} />
+                                        <Divider  style={{marginTop:"5px",marginBottom:"45px"}} />
+                                        
                                         <Grid container >
+                                            
                                             <Grid item xs={12} sm={5} style={{}}>
                                                     {tranferList('Available Course',left)}
                                                     

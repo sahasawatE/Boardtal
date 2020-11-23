@@ -11,7 +11,7 @@ import {
 export default function PCUserExam(props){
     
     return(
-        <Paper style={{margin:"1%"}}>
+        <Paper style={{marginLeft:"1%",marginTop:"1%",marginRight:"1%"}}>
             <Scheduler
                 data={props.schedule}
             >

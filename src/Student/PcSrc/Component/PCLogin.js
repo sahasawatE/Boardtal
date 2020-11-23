@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button'
 import { useHistory } from "react-router-dom"
 import {UserLoginIDList} from "./../../../Data/UserData"
 
+import axios from 'axios'
+
 export default function PCLogin(props){  
   
   const [inputError,setInputError] = useState()
@@ -28,22 +30,26 @@ export default function PCLogin(props){
       history.push("/main/home")
     }
   })
-  function handleLoginButton(){
+  async function handleLoginButton(){
     const id = document.getElementById("idTextField").value
     const password = document.getElementById("passwordTextField").value
-
-    for (const data in mockLoginData){
-      if (mockLoginData[data].uid === id && mockLoginData[data].password === password){
-        setInputError(false)
-        props.setRole(mockLoginData[data].role)
-        console.log(mockLoginData[data].role)
-        break
-      }
-      else{
-        setInputError(true)
-      }
-    } 
-  } 
+    console.log(typeof(id), typeof(password))
+    let data = await axios.post('https://boardtal.herokuapp.com/student/login',{
+        stud_id : id,
+        password : password
+    }).then(res=>{
+      return res.data
+    })
+    console.log(data)
+    props.setLoggedUserData(data)
+    if (data!=="error"){
+      props.setState(true)
+      setInputError(false)
+      history.push("/main/home")
+    }else{
+      setInputError(true)
+    }
+  }
 
   const styles = {
     paperStyle: {
@@ -108,10 +114,10 @@ export default function PCLogin(props){
                         
                           <TextField 
                             error={inputError}
+                            autoFocus 
                             required 
                             id="idTextField" 
                             label="User ID" 
-                            placeholder="" 
                             style={{
                               width:"100%"
                             }}
@@ -127,13 +133,11 @@ export default function PCLogin(props){
                               id="passwordTextField"
                               label="Password"
                               type="password"
-                              autoComplete="current-password"
                               helperText={
                                 inputError ? "incorrect ID or password":"" 
                               }
                               style={{
                                 width:"100%",
-                                
                               }}
                               color="secondary"
                             />
@@ -141,9 +145,6 @@ export default function PCLogin(props){
                         </Box>
                         <Box style={{margin:"5%"}}>
                           <Button variant="outlined" onClick={handleLoginButton} style={{width:"30%"}}>Login</Button><br/><br/>
-                          <Button variant="outlined" onClick={()=>{
-                            history.push("/teacher")
-                          }} style={{width:"30%"}}>Teacher Login</Button>
                         </Box>
                       </ThemeProvider>
                     </Box>

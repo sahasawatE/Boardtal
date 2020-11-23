@@ -7,7 +7,7 @@ import PCUserProfile from './PCUserComponent/PCUserProfile'
 import PCCourseRegister from './PCUserComponent/PCCourseRegister'
 
 
-export default function PCUser(){
+export default function PCUser(props){
     let history=useHistory()
     const [page,setpage] = useState(0)
     function changePage(page){
@@ -31,9 +31,10 @@ export default function PCUser(){
         }
         
     });
+    console.log("PCUser",props.loggedUserData)
     function CheckState(props){
         if (props.page===0){
-            return <PCUserProfile page={page} changePage={changePage}/>
+            return <PCUserProfile loggedUserData={props.loggedUserData} setLoggedUserData={props.setLoggedUserData} page={page} changePage={changePage}/>
         }else if (props.page===1) {
             return <PCCourseRegister page={page} changePage={changePage}/>
         }
@@ -51,9 +52,8 @@ export default function PCUser(){
     return(
         <Grid container xl>
             <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"/>
-            <CheckState page={page}/>
+            <CheckState loggedUserData={props.loggedUserData} setLoggedUserData={props.setLoggedUserData} page={page}/>
             
-           
         </Grid>
     )
 }
